@@ -4,20 +4,20 @@ import { ReadingListService } from './reading-list.service';
 
 @Controller()
 export class ReadingListController {
-  constructor(private readonly readingList: ReadingListService) {}
+  constructor(private readonly readingListService: ReadingListService) {}
 
   @Get('/reading-list/')
-  async getReadingList() {
-    return await this.readingList.getList();
+  async getReadingList(): Promise<any> {
+    return await this.readingListService.getList();
   }
 
   @Post('/reading-list/')
-  async addToReadingList(@Body() item: Book) {
-    return await this.readingList.addBook(item);
+  async addToReadingList(@Body() book: Book): Promise<any> {
+    return await this.readingListService.addBook(book);
   }
 
   @Delete('/reading-list/:id')
-  async removeFromReadingList(@Param() params) {
-    return await this.readingList.removeBook(params.id);
+  async removeFromReadingList(@Param('id') bookId: string): Promise<any> {
+    return await this.readingListService.removeBook(bookId);
   }
 }

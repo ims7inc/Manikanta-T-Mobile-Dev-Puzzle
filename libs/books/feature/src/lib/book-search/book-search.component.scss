@@ -70,3 +70,18 @@ form {
   font-size: 1.5rem;
   color: $gray40;
 }
+
+/* Define high-contrast colors for text and background */
+.high-contrast-input {
+  color: #000000;
+  /* Black text */
+  background-color: #ffffff;
+  /* White background */
+}
+
+.high-contrast-button {
+  color: #ffffff;
+  /* White text */
+  background-color: #000000;
+  /* Black background */
+}
