@@ -9,6 +9,7 @@ import {
 } from '@tmo/books/data-access';
 import { FormBuilder } from '@angular/forms';
 import { Book } from '@tmo/shared/models';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'tmo-book-search',
@@ -35,6 +36,16 @@ export class BookSearchComponent implements OnInit {
     this.store.select(getAllBooks).subscribe(books => {
       this.books = books;
     });
+
+    // Add this block for handling instant search
+    this.searchForm.controls['term'].valueChanges
+      .pipe(
+        debounceTime(500),  // Wait for a 500ms pause in typing
+        distinctUntilChanged()  // Only emit if the value has changed
+      )
+      .subscribe(term => {
+        this.searchBooks();  // Call the existing searchBooks() method
+      });
   }
 
   formatDate(date: void | string) {
